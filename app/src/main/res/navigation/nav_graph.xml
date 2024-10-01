@@ -2,20 +2,39 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph.xml"
+    android:id="@+id/nav_graph"
     app:startDestination="@id/walletFragment">
+
+    <!-- Games Fragment -->
     <fragment
         android:id="@+id/gamesFragment"
         android:name="androidsamples.java.dicegames.GamesFragment"
-        android:label="fragment_games"
-        tools:layout="@layout/fragment_games" />
+        android:label="GamesFragment"
+        tools:layout="@layout/fragment_games" >
+
+        <!-- Action to navigate from GamesFragment to InfoFragment -->
+        <action
+            android:id="@+id/action_gamesFragment_to_infoFragment"
+            app:destination="@id/infoFragment" />
+    </fragment>
+
+    <!-- Wallet Fragment -->
     <fragment
         android:id="@+id/walletFragment"
         android:name="androidsamples.java.dicegames.WalletFragment"
-        android:label="fragment_wallet"
+        android:label="WalletFragment"
         tools:layout="@layout/fragment_wallet" >
+
+        <!-- Action to navigate from WalletFragment to GamesFragment -->
         <action
             android:id="@+id/action_walletFragment_to_gamesFragment"
             app:destination="@id/gamesFragment" />
     </fragment>
+
+    <!-- Info Fragment -->
+    <fragment
+        android:id="@+id/infoFragment"
+        android:name="androidsamples.java.dicegames.InfoFragment"
+        android:label="InfoFragment"
+        tools:layout="@layout/fragment_info" />
 </navigation>

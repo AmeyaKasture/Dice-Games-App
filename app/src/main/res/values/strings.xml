@@ -4,4 +4,5 @@
     <string name="coins">Coins</string>
     <string name="to_games">To Games</string>
     <string name="congrats">Congratulations!</string>
+    <string name="rules_text">These are the rules of the game...</string>
 </resources>
