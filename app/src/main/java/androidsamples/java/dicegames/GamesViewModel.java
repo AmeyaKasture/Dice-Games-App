@@ -12,10 +12,10 @@ public class GamesViewModel extends ViewModel {
     private GameType gameType = GameType.NONE; // Default to NONE
     private GameResult gameResult = GameResult.UNDECIDED; // Default to UNDECIDED
     private Die6[] dice; // Array of Die6 for the game
-    public Die6 walletDie;
+    public Die6 walletDie; // Single Die6 for the wallet
     private int winFlag;
     private static final String PREFS_NAME = "dice_games_prefs";
-    private static final String KEY_BALANCE = "wallet_balance";// Single Die6 for the wallet
+    private static final String KEY_BALANCE = "wallet_balance";
 
     // Constructor
     public GamesViewModel() {
@@ -24,9 +24,21 @@ public class GamesViewModel extends ViewModel {
         for (int i = 0; i < 4; i++) {
             dice[i] = new Die6(); // Initialize each Die6
         }
-        this.walletDie = new Die6();// Initialize wallet die
-        this.winFlag=0;
+        this.walletDie = new Die6(); // Initialize wallet die
+        this.winFlag = 0;
     }
+
+    // Constructor allowing dependency injection
+    public GamesViewModel(Die6 walletDie) {
+        this.walletDie = walletDie; // Injected wallet die
+        this.balance = 0; // Initialize balance to 0
+        this.dice = new Die6[4]; // Create an array for four dice
+        for (int i = 0; i < 4; i++) {
+            dice[i] = new Die6(); // Initialize each Die6
+        }
+        this.winFlag = 0;
+    }
+
     // Load balance from SharedPreferences
     public void loadBalance(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences("GamePrefs", Context.MODE_PRIVATE);
@@ -55,7 +67,7 @@ public class GamesViewModel extends ViewModel {
         this.gameType = gameType;
     }
 
-    public void roller(){
+    public void roller() {
         for (Die6 die : dice) {
             die.roll(); // Roll each die
         }
@@ -75,32 +87,35 @@ public class GamesViewModel extends ViewModel {
         walletDie.roll(); // Roll the wallet die
         int rolledValue = walletDie.value(); // Get the rolled value
         if (rolledValue == 6) {
-            balance += 5;// Increment balance by 5 if rolled 6
-            this.winFlag=2;
+            balance += 5; // Increment balance by 5 if rolled 6
+            this.winFlag = 2; // Set winFlag for win
+        } else {
+            this.winFlag = 0; // Reset winFlag for other rolls
         }
-        // No change to balance if rolled value is 1
-        // Add more conditions if needed
     }
 
     private boolean isWagerValid(int multiplier) {
         int maxWager = balance / multiplier; // Calculate the max wager based on balance and multiplier
         return wager > 0 && wager <= maxWager; // Check if wager is within the allowed limit
     }
+
     private void updateBalanceAfterWin(int multiplier) {
         balance += wager * multiplier; // Add the winnings to the balance
     }
+
     private void updateBalanceAfterLoss(int multiplier) {
         balance -= wager * multiplier; // Subtract the wager * multiplier from the balance
     }
+
     public int getWinFlag() {
         return winFlag;
     }
-    void set_flag(int val){
-        this.winFlag=val;
+
+    void set_flag(int val) {
+        this.winFlag = val;
     }
 
-
-        // Check if the wager is valid based on the balance and game type
+    // Check if the wager is valid based on the balance and game type
     public boolean isValidWager() {
         if (wager <= 0 || gameType == GameType.NONE) {
             return false;
@@ -195,8 +210,6 @@ public class GamesViewModel extends ViewModel {
         }
         return gameResult; // Return the result of the game
     }
-
-
 
     // Helper methods to check for alike dice
     private boolean areAllEqual(int[] dice) {
