@@ -9,7 +9,7 @@ public class GamesViewModel extends ViewModel {
     private GameType gameType = GameType.NONE; // Default to NONE
     private GameResult gameResult = GameResult.UNDECIDED; // Default to UNDECIDED
     private Die6[] dice; // Array of Die6 for the game
-    private Die6 walletDie; // Single Die6 for the wallet
+    public Die6 walletDie; // Single Die6 for the wallet
 
     // Constructor
     public GamesViewModel() {
