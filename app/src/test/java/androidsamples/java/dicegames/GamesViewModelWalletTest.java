@@ -19,7 +19,7 @@ public class GamesViewModelWalletTest {
     private static final int WIN_VALUE = 6;
 
     @Spy
-    private Die walletDie;
+    private Die6 walletDie;
     @InjectMocks
     private GamesViewModel m = new GamesViewModel();
     private AutoCloseable closeable;
@@ -27,6 +27,7 @@ public class GamesViewModelWalletTest {
     @Before
     public void openMocks() {
         closeable = MockitoAnnotations.openMocks(this);
+
     }
 
     @After

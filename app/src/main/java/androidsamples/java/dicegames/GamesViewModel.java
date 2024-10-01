@@ -110,6 +110,15 @@ public class GamesViewModel extends ViewModel {
 
     // Play the game and return the result
     public GameResult play() {
+        // Check if wager is set
+        if (wager <= 0) {
+            throw new IllegalStateException("Wager not set, can't play!");
+        }
+
+        // Check if game type is set
+        if (gameType == GameType.NONE) {
+            throw new IllegalStateException("Game Type not set, can't play!");
+        }
         int[] rolledDice = diceValues(); // Roll the dice and get the values
         int multiplier;
         switch (gameType) {
