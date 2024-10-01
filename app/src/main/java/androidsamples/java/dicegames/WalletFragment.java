@@ -60,6 +60,24 @@ public class WalletFragment extends Fragment {
             Navigation.findNavController(view).navigate(action);
         });
     }
+    @Override
+    public void onPause() {
+        super.onPause();
+        Log.d(TAG, "onPause");
+        // Save balance when fragment is paused
+        DiceGamesPrefs.setBalance(requireContext(), vm.balance);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume");
+        // Retrieve the saved balance when fragment resumes
+        vm.balance = DiceGamesPrefs.balance(requireContext());
+        // Update the balance TextView
+        updateBalance();
+    }
+
 
     // Method to update balance TextView
     private void updateBalance() {

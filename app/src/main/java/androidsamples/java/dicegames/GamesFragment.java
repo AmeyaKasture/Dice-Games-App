@@ -1,6 +1,7 @@
 package androidsamples.java.dicegames;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,6 +30,7 @@ public class GamesFragment extends Fragment {
     private RadioGroup alikeRadioGroup;
     private Button goButton;
     private Button infoButton;
+    public static  String TAG="tagger";
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -41,7 +43,7 @@ public class GamesFragment extends Fragment {
 
         // Initialize ViewModel
         gamesViewModel = new ViewModelProvider(this).get(GamesViewModel.class);
-        gamesViewModel.loadBalance(getActivity()); // Load balance from SharedPreferences
+//        gamesViewModel.loadBalance(getActivity()); // Load balance from SharedPreferences
 
         // Bind UI components
         coinsBalanceTextView = view.findViewById(R.id.coinsBalanceTextView);
@@ -99,10 +101,21 @@ public class GamesFragment extends Fragment {
         });
     }
 
-    @Override
     public void onPause() {
         super.onPause();
-        gamesViewModel.saveBalance(getActivity()); // Save balance when fragment is paused
+        Log.d(TAG, "onPause");
+        // Save balance when fragment is paused
+        DiceGamesPrefs.setBalance(requireContext(), gamesViewModel.balance);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume");
+        // Retrieve the saved balance when fragment resumes
+        gamesViewModel.balance = DiceGamesPrefs.balance(requireContext());
+        // Update the balance TextView
+        coinsBalanceTextView.setText(String.valueOf(gamesViewModel.balance));
     }
 
     private void updateDiceUI(int[] diceValues) {
