@@ -4,5 +4,5 @@
     <string name="coins">Coins</string>
     <string name="to_games">To Games</string>
     <string name="congrats">Congratulations!</string>
-    <string name="rules_text">These are the rules of the game...</string>
+    <string name="rules_text">Dice Games Overview\nIn this game, players roll a dice with the objective of landing a 6 to earn coins.\nThese accumulated coins can be staked in the Two Or More game.\n\nWithin the Two Or More game, players have the opportunity to bet their coins and potentially win more, depending on the specific game variant they select.</string>
 </resources>
