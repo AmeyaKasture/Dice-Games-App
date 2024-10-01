@@ -21,6 +21,7 @@ public class InfoFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         TextView rulesTextView = view.findViewById(R.id.rulesTextView);
-        rulesTextView.setText(getString(R.string.rules_text)); // Add a rules text in strings.xml
+        rulesTextView.setText(getString(R.string.rules_text));
+        rulesTextView.setContentDescription(getString(R.string.rules_text));// Add a rules text in strings.xml
     }
 }
