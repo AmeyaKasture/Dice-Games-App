@@ -52,4 +52,34 @@ public class GamesViewModelWalletTest {
         m.rollWalletDie();
         assertThat(m.balance, is(oldBalance));
     }
+    @Test
+    public void rolling3DoesNotChangeBalance() {
+        int oldBalance = m.balance;
+        when(walletDie.value()).thenReturn(3);
+
+        m.rollWalletDie();
+        assertThat(m.balance, is(oldBalance));
+    }
+
+    @Test
+    public void rolling5DoesNotChangeBalance() {
+        int oldBalance = m.balance;
+        when(walletDie.value()).thenReturn(5);
+
+        m.rollWalletDie();
+        assertThat(m.balance, is(oldBalance));
+    }
+
+    @Test
+    public void rolling2DoesNotChangeBalance() {
+        int oldBalance = m.balance;
+        when(walletDie.value()).thenReturn(2);
+
+        m.rollWalletDie();
+        assertThat(m.balance, is(oldBalance));
+    }
+
+
+
+
 }
