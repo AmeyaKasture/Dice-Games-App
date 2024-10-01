@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:padding="16dp"
+            android:background="@android:color/white">
+
+            <!-- Coins Layout -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginBottom="16dp">
+
+                <!-- Coins Label -->
+                <TextView
+                    android:id="@+id/coinsLabelTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Coins:"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/darker_gray"
+                    android:layout_marginRight="8dp" />
+
+                <!-- Coins Balance -->
+                <TextView
+                    android:id="@+id/coinsBalanceTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="18sp"
+                    android:textColor="@android:color/darker_gray" />
+            </LinearLayout>
+
+            <!-- Radio Buttons -->
+            <RadioGroup
+                android:id="@+id/alikeRadioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <RadioButton
+                    android:id="@+id/twoAlikeRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="2 Alike" />
+
+                <RadioButton
+                    android:id="@+id/threeAlikeRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="3 Alike"
+                    android:layout_marginLeft="16dp" />
+
+                <RadioButton
+                    android:id="@+id/fourAlikeRadioButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="4 Alike"
+                    android:layout_marginLeft="16dp" />
+            </RadioGroup>
+
+            <!-- Input and Button -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical">
+
+                <EditText
+                    android:id="@+id/inputEditText"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:gravity="center"
+                    android:layout_marginRight="8dp"
+                    android:text="" />
+
+                <Button
+                    android:id="@+id/goButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="GO" />
+            </LinearLayout>
+
+            <!-- Grid of Numbers -->
+            <GridLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:rowCount="2"
+                android:columnCount="2"
+                android:layout_marginTop="24dp">
+
+                <TextView
+                    android:id="@+id/num1"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:text="6"
+                    android:textSize="48sp"
+                    android:gravity="center"
+                    android:layout_margin="8dp"
+                    android:background="@android:color/holo_purple"
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:id="@+id/num2"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:text="6"
+                    android:textSize="48sp"
+                    android:gravity="center"
+                    android:layout_margin="8dp"
+                    android:background="@android:color/holo_purple"
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:id="@+id/num3"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:text="6"
+                    android:textSize="48sp"
+                    android:gravity="center"
+                    android:layout_margin="8dp"
+                    android:background="@android:color/holo_purple"
+                    android:textColor="@android:color/white" />
+
+                <TextView
+                    android:id="@+id/num4"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:text="5"
+                    android:textSize="48sp"
+                    android:gravity="center"
+                    android:layout_margin="8dp"
+                    android:background="@android:color/holo_purple"
+                    android:textColor="@android:color/white" />
+            </GridLayout>
+
+            <!-- Info Button -->
+            <Button
+                android:id="@+id/infoButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="INFO"
+                android:layout_marginTop="24dp" />
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
