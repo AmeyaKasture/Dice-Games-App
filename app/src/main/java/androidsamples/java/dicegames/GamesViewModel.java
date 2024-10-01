@@ -1,5 +1,8 @@
 package androidsamples.java.dicegames;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import androidx.lifecycle.ViewModel;
 
 public class GamesViewModel extends ViewModel {
@@ -9,7 +12,9 @@ public class GamesViewModel extends ViewModel {
     private GameType gameType = GameType.NONE; // Default to NONE
     private GameResult gameResult = GameResult.UNDECIDED; // Default to UNDECIDED
     private Die6[] dice; // Array of Die6 for the game
-    public Die6 walletDie; // Single Die6 for the wallet
+    public Die6 walletDie;
+    private static final String PREFS_NAME = "dice_games_prefs";
+    private static final String KEY_BALANCE = "wallet_balance";// Single Die6 for the wallet
 
     // Constructor
     public GamesViewModel() {
@@ -19,6 +24,18 @@ public class GamesViewModel extends ViewModel {
             dice[i] = new Die6(); // Initialize each Die6
         }
         this.walletDie = new Die6(); // Initialize wallet die
+    }
+    // Load balance from SharedPreferences
+    public void loadBalance(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("GamePrefs", Context.MODE_PRIVATE);
+        balance = sharedPreferences.getInt("walletBalance", 0); // Default to 0 if not found
+    }
+
+    public void saveBalance(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("GamePrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("walletBalance", balance);
+        editor.apply();
     }
 
     // Setter for wager
