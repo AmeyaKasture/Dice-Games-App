@@ -13,6 +13,7 @@ public class GamesViewModel extends ViewModel {
     private GameResult gameResult = GameResult.UNDECIDED; // Default to UNDECIDED
     private Die6[] dice; // Array of Die6 for the game
     public Die6 walletDie;
+    private int winFlag;
     private static final String PREFS_NAME = "dice_games_prefs";
     private static final String KEY_BALANCE = "wallet_balance";// Single Die6 for the wallet
 
@@ -23,7 +24,8 @@ public class GamesViewModel extends ViewModel {
         for (int i = 0; i < 4; i++) {
             dice[i] = new Die6(); // Initialize each Die6
         }
-        this.walletDie = new Die6(); // Initialize wallet die
+        this.walletDie = new Die6();// Initialize wallet die
+        this.winFlag=0;
     }
     // Load balance from SharedPreferences
     public void loadBalance(Context context) {
@@ -70,7 +72,8 @@ public class GamesViewModel extends ViewModel {
         walletDie.roll(); // Roll the wallet die
         int rolledValue = walletDie.value(); // Get the rolled value
         if (rolledValue == 6) {
-            balance += 5; // Increment balance by 5 if rolled 6
+            balance += 5;// Increment balance by 5 if rolled 6
+            this.winFlag=2;
         }
         // No change to balance if rolled value is 1
         // Add more conditions if needed
@@ -86,7 +89,12 @@ public class GamesViewModel extends ViewModel {
     private void updateBalanceAfterLoss(int multiplier) {
         balance -= wager * multiplier; // Subtract the wager * multiplier from the balance
     }
-
+    public int getWinFlag() {
+        return winFlag;
+    }
+    void set_flag(int val){
+        this.winFlag=val;
+    }
 
 
         // Check if the wager is valid based on the balance and game type
@@ -128,12 +136,15 @@ public class GamesViewModel extends ViewModel {
                     if (areAllEqual(rolledDice)) {
                         gameResult = GameResult.WIN;
                         updateBalanceAfterWin(multiplier);
+                        winFlag = 2; // Set winFlag to 2 for win
                     } else {
                         gameResult = GameResult.LOSS;
                         updateBalanceAfterLoss(multiplier);
+                        winFlag = 1; // Set winFlag to 1 for loss
                     }
                 } else {
                     gameResult = GameResult.UNDECIDED; // Invalid wager, undecided game
+                    winFlag = 0; // Set winFlag to 0 for undecided
                 }
                 break;
 
@@ -143,12 +154,15 @@ public class GamesViewModel extends ViewModel {
                     if (areThreeEqual(rolledDice)) {
                         gameResult = GameResult.WIN;
                         updateBalanceAfterWin(multiplier);
+                        winFlag = 2;
                     } else {
                         gameResult = GameResult.LOSS;
                         updateBalanceAfterLoss(multiplier);
+                        winFlag = 1;
                     }
                 } else {
                     gameResult = GameResult.UNDECIDED;
+                    winFlag = 0;
                 }
                 break;
 
@@ -158,17 +172,21 @@ public class GamesViewModel extends ViewModel {
                     if (areTwoEqual(rolledDice)) {
                         gameResult = GameResult.WIN;
                         updateBalanceAfterWin(multiplier);
+                        winFlag = 2;
                     } else {
                         gameResult = GameResult.LOSS;
                         updateBalanceAfterLoss(multiplier);
+                        winFlag = 1;
                     }
                 } else {
                     gameResult = GameResult.UNDECIDED;
+                    winFlag = 0;
                 }
                 break;
 
             default:
                 gameResult = GameResult.UNDECIDED; // If no valid game type, default to UNDECIDED
+                winFlag = 0;
                 break;
         }
         return gameResult; // Return the result of the game

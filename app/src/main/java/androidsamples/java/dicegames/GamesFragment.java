@@ -43,7 +43,6 @@ public class GamesFragment extends Fragment {
 
         // Initialize ViewModel
         gamesViewModel = new ViewModelProvider(this).get(GamesViewModel.class);
-//        gamesViewModel.loadBalance(getActivity()); // Load balance from SharedPreferences
 
         // Bind UI components
         coinsBalanceTextView = view.findViewById(R.id.coinsBalanceTextView);
@@ -51,6 +50,12 @@ public class GamesFragment extends Fragment {
         alikeRadioGroup = view.findViewById(R.id.alikeRadioGroup);
         goButton = view.findViewById(R.id.goButton);
         infoButton = view.findViewById(R.id.infoButton);
+
+        // Set content descriptions for accessibility
+        coinsBalanceTextView.setContentDescription("Current balance: " + gamesViewModel.balance);
+        inputEditText.setContentDescription("Input wager amount here");
+        goButton.setContentDescription("Click to play the game");
+        infoButton.setContentDescription("Click for game information");
 
         // Update the balance TextView initially
         coinsBalanceTextView.setText(String.valueOf(gamesViewModel.balance));
@@ -61,46 +66,10 @@ public class GamesFragment extends Fragment {
             Navigation.findNavController(view).navigate(action);
         });
 
-        // Set up click listener for the GO button
-        goButton.setOnClickListener(v -> {
-            // Get the wager from the EditText
-            String wagerText = inputEditText.getText().toString();
-            if (!wagerText.isEmpty()) {
-                int wager = Integer.parseInt(wagerText);
-                gamesViewModel.setWager(wager);
 
-                // Set the game type based on selected RadioButton
-                int selectedId = alikeRadioGroup.getCheckedRadioButtonId();
-                if (selectedId != -1) {
-                    RadioButton selectedRadioButton = view.findViewById(selectedId);
-                    switch (selectedRadioButton.getText().toString()) {
-                        case "2 Alike":
-                            gamesViewModel.setGameType(GameType.TWO_ALIKE);
-                            break;
-                        case "3 Alike":
-                            gamesViewModel.setGameType(GameType.THREE_ALIKE);
-                            break;
-                        case "4 Alike":
-                            gamesViewModel.setGameType(GameType.FOUR_ALIKE);
-                            break;
-                    }
-
-                    // Validate wager and play the game
-                    if (gamesViewModel.isValidWager()) {
-                        GameResult result = gamesViewModel.play();
-                        // Handle the game result (update UI accordingly)
-                        updateDiceUI(gamesViewModel.diceValues());
-                        // Update the balance after playing
-                        coinsBalanceTextView.setText(String.valueOf(gamesViewModel.balance));
-                    } else {
-                        // Handle invalid wager (show a message or a toast)
-                        Toast.makeText(getActivity(), "Invalid wager!", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            }
-        });
     }
 
+    @Override
     public void onPause() {
         super.onPause();
         Log.d(TAG, "onPause");
@@ -114,8 +83,70 @@ public class GamesFragment extends Fragment {
         Log.d(TAG, "onResume");
         // Retrieve the saved balance when fragment resumes
         gamesViewModel.balance = DiceGamesPrefs.balance(requireContext());
+        Log.d(TAG, "current balance is " + gamesViewModel.balance);
+
         // Update the balance TextView
+        updateBalanceTextView();
+
+        // Set up the GO button's onClick listener in onResume
+        goButton.setOnClickListener(v -> handleGoButtonClick(getView()));
+    }
+
+    private void handleGoButtonClick(View view) {
+        // Get the wager from the EditText
+        String wagerText = inputEditText.getText().toString();
+        if (!wagerText.isEmpty()) {
+            int wager = Integer.parseInt(wagerText);
+            gamesViewModel.setWager(wager);
+
+            // Set the game type based on selected RadioButton
+            int selectedId = alikeRadioGroup.getCheckedRadioButtonId();
+            if (selectedId != -1) {
+                RadioButton selectedRadioButton = view.findViewById(selectedId);
+                switch (selectedRadioButton.getText().toString()) {
+                    case "2 Alike":
+                        gamesViewModel.setGameType(GameType.TWO_ALIKE);
+                        break;
+                    case "3 Alike":
+                        gamesViewModel.setGameType(GameType.THREE_ALIKE);
+                        break;
+                    case "4 Alike":
+                        gamesViewModel.setGameType(GameType.FOUR_ALIKE);
+                        break;
+                }
+
+                // Validate wager and play the game
+                if (gamesViewModel.isValidWager()) {
+                    GameResult result = gamesViewModel.play();
+                    // Handle the game result (update UI accordingly)
+                    updateDiceUI(gamesViewModel.diceValues());
+                    // Update the balance after playing
+                    updateBalanceTextView();
+
+                    // Display a toast message based on winFlag
+                    int winFlag = gamesViewModel.getWinFlag();
+                    if (winFlag == 2) {
+                        Toast.makeText(getActivity(), "Congratulations! You won!", Toast.LENGTH_SHORT).show();
+                        gamesViewModel.set_flag(0);
+                    } else if (winFlag == 1) {
+                        Toast.makeText(getActivity(), "Sorry! You lost!", Toast.LENGTH_SHORT).show();
+                        gamesViewModel.set_flag(0);
+                    } else {
+                        Toast.makeText(getActivity(), "Undecided or invalid wager. Try again.", Toast.LENGTH_SHORT).show();
+                        gamesViewModel.set_flag(0);
+                    }
+
+                } else {
+                    // Handle invalid wager (show a message or a toast)
+                    Toast.makeText(getActivity(), "Invalid wager!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
+    }
+
+    private void updateBalanceTextView() {
         coinsBalanceTextView.setText(String.valueOf(gamesViewModel.balance));
+        coinsBalanceTextView.setContentDescription("Current balance: " + gamesViewModel.balance);
     }
 
     private void updateDiceUI(int[] diceValues) {
@@ -124,7 +155,11 @@ public class GamesFragment extends Fragment {
         ((TextView) getView().findViewById(R.id.num2)).setText(String.valueOf(diceValues[1]));
         ((TextView) getView().findViewById(R.id.num3)).setText(String.valueOf(diceValues[2]));
         ((TextView) getView().findViewById(R.id.num4)).setText(String.valueOf(diceValues[3]));
+
+        // Set content descriptions for dice values
+        ((TextView) getView().findViewById(R.id.num1)).setContentDescription("Die 1 rolled: " + diceValues[0]);
+        ((TextView) getView().findViewById(R.id.num2)).setContentDescription("Die 2 rolled: " + diceValues[1]);
+        ((TextView) getView().findViewById(R.id.num3)).setContentDescription("Die 3 rolled: " + diceValues[2]);
+        ((TextView) getView().findViewById(R.id.num4)).setContentDescription("Die 4 rolled: " + diceValues[3]);
     }
 }
-
-
