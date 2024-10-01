@@ -55,11 +55,14 @@ public class GamesViewModel extends ViewModel {
         this.gameType = gameType;
     }
 
-    // Roll all dice for gameplay
-    public int[] diceValues() {
+    public void roller(){
         for (Die6 die : dice) {
             die.roll(); // Roll each die
         }
+    }
+
+    // Roll all dice for gameplay
+    public int[] diceValues() {
         int[] values = new int[4];
         for (int i = 0; i < dice.length; i++) {
             values[i] = dice[i].value(); // Get the value of each rolled die
@@ -127,6 +130,7 @@ public class GamesViewModel extends ViewModel {
         if (gameType == GameType.NONE) {
             throw new IllegalStateException("Game Type not set, can't play!");
         }
+        roller();
         int[] rolledDice = diceValues(); // Roll the dice and get the values
         int multiplier;
         switch (gameType) {
