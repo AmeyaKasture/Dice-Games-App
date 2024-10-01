@@ -76,7 +76,20 @@ public class GamesViewModel extends ViewModel {
         // Add more conditions if needed
     }
 
-    // Check if the wager is valid based on the balance and game type
+    private boolean isWagerValid(int multiplier) {
+        int maxWager = balance / multiplier; // Calculate the max wager based on balance and multiplier
+        return wager > 0 && wager <= maxWager; // Check if wager is within the allowed limit
+    }
+    private void updateBalanceAfterWin(int multiplier) {
+        balance += wager * multiplier; // Add the winnings to the balance
+    }
+    private void updateBalanceAfterLoss(int multiplier) {
+        balance -= wager * multiplier; // Subtract the wager * multiplier from the balance
+    }
+
+
+
+        // Check if the wager is valid based on the balance and game type
     public boolean isValidWager() {
         if (wager <= 0 || gameType == GameType.NONE) {
             return false;
@@ -97,46 +110,61 @@ public class GamesViewModel extends ViewModel {
 
     // Play the game and return the result
     public GameResult play() {
-        if (wager <= 0) {
-            throw new IllegalStateException("Wager not set, can't play!"); // Check for wager
-        }
-        if (gameType == GameType.NONE) {
-            throw new IllegalStateException("Game Type not set, can't play!"); // Check for game type
-        }
-
-        if (!isValidWager()) {
-            throw new IllegalStateException("Invalid wager, can't play!");
-        }
-
-        int[] rolledDice = diceValues(); // Get the current dice values
+        int[] rolledDice = diceValues(); // Roll the dice and get the values
+        int multiplier;
         switch (gameType) {
             case FOUR_ALIKE:
-                if (areAllEqual(rolledDice)) {
-                    gameResult = GameResult.WIN;
+                multiplier = 4; // 4x multiplier for "Four Alike"
+                if (isWagerValid(multiplier)) {
+                    if (areAllEqual(rolledDice)) {
+                        gameResult = GameResult.WIN;
+                        updateBalanceAfterWin(multiplier);
+                    } else {
+                        gameResult = GameResult.LOSS;
+                        updateBalanceAfterLoss(multiplier);
+                    }
                 } else {
-                    gameResult = GameResult.LOSS;
+                    gameResult = GameResult.UNDECIDED; // Invalid wager, undecided game
                 }
                 break;
+
             case THREE_ALIKE:
-                if (areThreeEqual(rolledDice)) {
-                    gameResult = GameResult.WIN;
+                multiplier = 3; // 3x multiplier for "Three Alike"
+                if (isWagerValid(multiplier)) {
+                    if (areThreeEqual(rolledDice)) {
+                        gameResult = GameResult.WIN;
+                        updateBalanceAfterWin(multiplier);
+                    } else {
+                        gameResult = GameResult.LOSS;
+                        updateBalanceAfterLoss(multiplier);
+                    }
                 } else {
-                    gameResult = GameResult.LOSS;
+                    gameResult = GameResult.UNDECIDED;
                 }
                 break;
+
             case TWO_ALIKE:
-                if (areTwoEqual(rolledDice)) {
-                    gameResult = GameResult.WIN;
+                multiplier = 2; // 2x multiplier for "Two Alike"
+                if (isWagerValid(multiplier)) {
+                    if (areTwoEqual(rolledDice)) {
+                        gameResult = GameResult.WIN;
+                        updateBalanceAfterWin(multiplier);
+                    } else {
+                        gameResult = GameResult.LOSS;
+                        updateBalanceAfterLoss(multiplier);
+                    }
                 } else {
-                    gameResult = GameResult.LOSS;
+                    gameResult = GameResult.UNDECIDED;
                 }
                 break;
+
             default:
                 gameResult = GameResult.UNDECIDED; // If no valid game type, default to UNDECIDED
                 break;
         }
         return gameResult; // Return the result of the game
     }
+
 
 
     // Helper methods to check for alike dice
