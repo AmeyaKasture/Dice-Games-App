@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:text="Coins:"
             android:textSize="18sp"
-            android:textColor="@android:color/darker_gray"
+            android:textColor="#2E2E2E"
             android:layout_marginRight="8dp" />
 
         <!-- Coins Balance -->
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:text="0"
             android:textSize="18sp"
-            android:textColor="@android:color/darker_gray" />
+            android:textColor="#2E2E2E" />
     </LinearLayout>
 
     <!-- Radio Buttons -->
@@ -101,10 +101,11 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:text="6"
-            android:textSize="48sp"
+            android:textSize="60sp"
             android:gravity="center"
             android:layout_margin="8dp"
             android:background="@android:color/holo_purple"
+            android:importantForAccessibility="yes"
             android:textColor="@android:color/white" />
 
         <TextView
@@ -112,10 +113,11 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:text="6"
-            android:textSize="48sp"
+            android:textSize="60sp"
             android:gravity="center"
             android:layout_margin="8dp"
             android:background="@android:color/holo_purple"
+            android:importantForAccessibility="yes"
             android:textColor="@android:color/white" />
 
         <TextView
@@ -123,10 +125,11 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:text="6"
-            android:textSize="48sp"
+            android:textSize="60sp"
             android:gravity="center"
             android:layout_margin="8dp"
             android:background="@android:color/holo_purple"
+            android:importantForAccessibility="yes"
             android:textColor="@android:color/white" />
 
         <TextView
@@ -134,10 +137,11 @@
             android:layout_width="100dp"
             android:layout_height="100dp"
             android:text="5"
-            android:textSize="48sp"
+            android:textSize="60sp"
             android:gravity="center"
             android:layout_margin="8dp"
             android:background="@android:color/holo_purple"
+            android:importantForAccessibility="yes"
             android:textColor="@android:color/white" />
     </GridLayout>
 

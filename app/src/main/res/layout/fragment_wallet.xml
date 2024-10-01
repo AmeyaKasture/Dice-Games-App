@@ -9,6 +9,7 @@
         android:layout_width="128dp"
         android:layout_height="128dp"
         android:text="@string/zero"
+        android:textSize="75sp"
         android:textAppearance="@style/TextAppearance.AppCompat.Display3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -62,22 +62,37 @@ public class GamesViewModelWalletTest {
     }
 
     @Test
-    public void rolling5DoesNotChangeBalance() {
-        int oldBalance = m.balance;
-        when(walletDie.value()).thenReturn(5);
+    public void rollingTwoSixesIncreasesBalanceBy10() {
+        int oldBalance = m.balance; // Store the current balance
+        when(walletDie.value()).thenReturn(6); // Mock the die to return 6 for the first roll
+        m.rollWalletDie(); // First roll
 
-        m.rollWalletDie();
-        assertThat(m.balance, is(oldBalance));
+        // Now simulate rolling the die again, returning 6 for the second roll
+        when(walletDie.value()).thenReturn(6); // Mock the die to return 6 again
+        m.rollWalletDie(); // Second roll
+
+        // Check if the balance is updated correctly
+        int expectedBalance = oldBalance + 10; // Assuming 10 is added when rolling two sixes
+        assertThat(m.balance, is(expectedBalance)); // Verify the expected balance
     }
 
     @Test
-    public void rolling2DoesNotChangeBalance() {
-        int oldBalance = m.balance;
-        when(walletDie.value()).thenReturn(2);
+    public void rollingOneAndSixIncreasesBalanceBy5() {
+        int oldBalance = m.balance; // Store the current balance
+        when(walletDie.value()).thenReturn(1); // Mock the die to return 1 for the first roll
+        m.rollWalletDie(); // First roll
 
-        m.rollWalletDie();
-        assertThat(m.balance, is(oldBalance));
+        // Now simulate rolling the die again, returning 6 for the second roll
+        when(walletDie.value()).thenReturn(6); // Mock the die to return 6 for the second roll
+        m.rollWalletDie(); // Second roll
+
+        // Check if the balance is updated correctly
+        int expectedBalance = oldBalance + 5; // Assuming 5 is added when rolling 1 followed by 6
+        assertThat(m.balance, is(expectedBalance)); // Verify the expected balance
     }
+
+
+
 
 
 
