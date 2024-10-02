@@ -17,7 +17,6 @@
         android:layout_marginBottom="16dp"
         android:importantForAccessibility="yes">
 
-        <!-- Coins Label -->
         <TextView
             android:id="@+id/coinsLabelTextView"
             android:layout_width="wrap_content"
@@ -29,7 +28,6 @@
             android:importantForAccessibility="yes"
             android:contentDescription="Label: Coins" />
 
-        <!-- Coins Balance -->
         <TextView
             android:id="@+id/coinsBalanceTextView"
             android:layout_width="wrap_content"
@@ -56,8 +54,7 @@
             android:layout_height="wrap_content"
             android:text="2 Alike"
             android:importantForAccessibility="yes"
-            android:contentDescription="2 Alike Radio Button"
-            android:focusable="true" />
+            android:contentDescription="2 Alike Radio Button" />
 
         <RadioButton
             android:id="@+id/threeAlikeRadioButton"
@@ -66,8 +63,7 @@
             android:text="3 Alike"
             android:layout_marginLeft="16dp"
             android:importantForAccessibility="yes"
-            android:contentDescription="3 Alike Radio Button"
-            android:focusable="true" />
+            android:contentDescription="3 Alike Radio Button" />
 
         <RadioButton
             android:id="@+id/fourAlikeRadioButton"
@@ -76,8 +72,7 @@
             android:text="4 Alike"
             android:layout_marginLeft="16dp"
             android:importantForAccessibility="yes"
-            android:contentDescription="4 Alike Radio Button"
-            android:focusable="true" />
+            android:contentDescription="4 Alike Radio Button" />
     </RadioGroup>
 
     <!-- Input and Button -->
@@ -93,20 +88,19 @@
             android:id="@+id/inputEditText"
             android:layout_width="50dp"
             android:layout_height="wrap_content"
+            android:minHeight="48dp"
             android:inputType="number"
             android:gravity="center"
             android:layout_marginRight="8dp"
             android:hint="Enter number"
-            android:importantForAccessibility="yes"
-            android:contentDescription="Input field for numbers" />
+            android:importantForAccessibility="yes" />
 
         <Button
             android:id="@+id/goButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="GO"
-            android:importantForAccessibility="yes"
-            android:contentDescription="Go Button" />
+            android:layout_height="48dp"
+        android:text="GO"
+        android:importantForAccessibility="yes" />
     </LinearLayout>
 
     <!-- Grid of Numbers -->
@@ -127,9 +121,7 @@
             android:gravity="center"
             android:layout_margin="8dp"
             android:background="@android:color/holo_purple"
-            android:importantForAccessibility="yes"
-            android:textColor="@android:color/white"
-            android:contentDescription="Number 6" />
+            android:textColor="@android:color/white" />
 
         <TextView
             android:id="@+id/num2"
@@ -140,9 +132,7 @@
             android:gravity="center"
             android:layout_margin="8dp"
             android:background="@android:color/holo_purple"
-            android:importantForAccessibility="yes"
-            android:textColor="@android:color/white"
-            android:contentDescription="Number 6" />
+            android:textColor="@android:color/white" />
 
         <TextView
             android:id="@+id/num3"
@@ -153,9 +143,7 @@
             android:gravity="center"
             android:layout_margin="8dp"
             android:background="@android:color/holo_purple"
-            android:importantForAccessibility="yes"
-            android:textColor="@android:color/white"
-            android:contentDescription="Number 6" />
+            android:textColor="@android:color/white" />
 
         <TextView
             android:id="@+id/num4"
@@ -166,18 +154,15 @@
             android:gravity="center"
             android:layout_margin="8dp"
             android:background="@android:color/holo_purple"
-            android:importantForAccessibility="yes"
-            android:textColor="@android:color/white"
-            android:contentDescription="Number 5" />
+            android:textColor="@android:color/white" />
     </GridLayout>
 
     <!-- Info Button -->
     <Button
         android:id="@+id/infoButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="INFO"
-        android:layout_marginTop="24dp"
-        android:importantForAccessibility="yes"
-        android:contentDescription="Information button" />
+        android:layout_height="48dp"
+    android:text="INFO"
+    android:layout_marginTop="24dp"
+    android:importantForAccessibility="yes" />
 </LinearLayout>

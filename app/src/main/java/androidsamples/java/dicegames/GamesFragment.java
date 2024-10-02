@@ -53,7 +53,7 @@ public class GamesFragment extends Fragment {
 
         // Set content descriptions for accessibility
         coinsBalanceTextView.setContentDescription("Current balance: " + gamesViewModel.balance);
-        inputEditText.setContentDescription("Input wager amount here");
+//        inputEditText.setContentDescription("Input wager amount here");
         goButton.setContentDescription("Click to play the game");
         infoButton.setContentDescription("Click for game information");
 

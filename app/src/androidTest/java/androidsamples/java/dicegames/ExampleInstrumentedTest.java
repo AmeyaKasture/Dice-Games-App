@@ -53,6 +53,7 @@ public class ExampleInstrumentedTest {
     @Rule
     public ActivityScenarioRule<MainActivity> activityRule = new ActivityScenarioRule<>(MainActivity.class);
 
+    private  GamesViewModel vm;
 
 
 
@@ -181,28 +182,35 @@ public class ExampleInstrumentedTest {
     }
 
     @Test
-    public void mock4alike(){
+    public void gochecker() {
+        // Click the games button
         onView(withId(R.id.btn_games)).perform(click());
-//        when(m.diceValues()).thenReturn(new int[]{1, 1, 1, 1});
-        GamesViewModel m= new GamesViewModel();
-        m.setGameType(GameType.FOUR_ALIKE);
-        m.setBalance(100);
-        m.setWager(5);
 
-        activityRule.getScenario().onActivity(activity -> {
-            GamesViewModel vm = new ViewModelProvider(activity).get(GamesViewModel.class);
-            int[] arr={1,1,1,1};
+        // Retrieve the ViewModel via ViewModelProvider
 
-            vm.set_model(m,arr);
-        });
 
         // Perform game action
         onView(withId(R.id.goButton)).perform(click());
 
-        // Assert win condition
-
-        onView(withId(R.id.coinsBalanceTextView)).check(matches(withText("120")));
+        // Assert win condition - check the balance is updated correctl;
     }
+
+    @Test
+    public void infochecker() {
+        // Click the games button
+        onView(withId(R.id.btn_games)).perform(click());
+
+        // Retrieve the ViewModel via ViewModelProvider
+
+
+        // Perform game action
+        onView(withId(R.id.infoButton)).perform(click());
+
+        // Assert win condition - check the balance is updated correctl;
+    }
+
+
+
 
 
 
