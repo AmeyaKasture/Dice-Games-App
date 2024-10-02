@@ -13,6 +13,9 @@ public class Die6 implements Die {
     public Die6() {
         rng = new Random();
     }
+    public Die6(int val){
+        this.value=val;
+    }
 
     @Override
     public void roll() {

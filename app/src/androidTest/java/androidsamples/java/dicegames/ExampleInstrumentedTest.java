@@ -7,6 +7,26 @@ import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withSubstring;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.assertion.ViewAssertions.matches;
+import static androidx.test.espresso.matcher.ViewMatchers.withId;
+import static androidx.test.espresso.matcher.ViewMatchers.withText;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+
+import android.widget.TextView;
+
+import androidx.lifecycle.ViewModelProvider;
+import androidx.test.ext.junit.rules.ActivityScenarioRule;
+import androidx.test.ext.junit.runners.AndroidJUnit4;
+
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import static org.junit.Assert.assertEquals;
 
@@ -32,6 +52,9 @@ import org.junit.runner.RunWith;
 public class ExampleInstrumentedTest {
     @Rule
     public ActivityScenarioRule<MainActivity> activityRule = new ActivityScenarioRule<>(MainActivity.class);
+
+
+
 
     @BeforeClass
     public static void enableAccessibilityChecks() {
@@ -140,6 +163,7 @@ public class ExampleInstrumentedTest {
         }
     }
 
+
     @Test
     public void checkButtonHasContentDescription() {
         // Verify the button has a content description for accessibility
@@ -155,6 +179,31 @@ public class ExampleInstrumentedTest {
                     assertEquals(true, view.isFocusable()); // Assert that the button is focusable
                 });
     }
+
+    @Test
+    public void mock4alike(){
+        onView(withId(R.id.btn_games)).perform(click());
+//        when(m.diceValues()).thenReturn(new int[]{1, 1, 1, 1});
+        GamesViewModel m= new GamesViewModel();
+        m.setGameType(GameType.FOUR_ALIKE);
+        m.setBalance(100);
+        m.setWager(5);
+
+        activityRule.getScenario().onActivity(activity -> {
+            GamesViewModel vm = new ViewModelProvider(activity).get(GamesViewModel.class);
+            int[] arr={1,1,1,1};
+
+            vm.set_model(m,arr);
+        });
+
+        // Perform game action
+        onView(withId(R.id.goButton)).perform(click());
+
+        // Assert win condition
+
+        onView(withId(R.id.coinsBalanceTextView)).check(matches(withText("120")));
+    }
+
 
 
 

@@ -17,6 +17,7 @@ public class GamesViewModel extends ViewModel {
     private static final String PREFS_NAME = "dice_games_prefs";
     private static final String KEY_BALANCE = "wallet_balance";
 
+
     // Constructor
     public GamesViewModel() {
         this.balance = 0; // Initialize balance to 0
@@ -26,6 +27,16 @@ public class GamesViewModel extends ViewModel {
         }
         this.walletDie = new Die6(); // Initialize wallet die
         this.winFlag = 0;
+    }
+
+    public void set_model(GamesViewModel m,int arr[]){
+        this.balance=m.balance;
+        this.dice=m.dice;
+        this.walletDie=m.walletDie;
+        this.winFlag=m.winFlag;
+        for (int i = 0; i < 4; i++) {
+            dice[i] = new Die6(arr[i]); // Initialize each Die6
+        }
     }
 
     // Constructor allowing dependency injection
