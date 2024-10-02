@@ -98,7 +98,8 @@
                     android:id="@+id/goButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="GO" />
+                    android:text="GO"
+                    android:contentDescription="Start the game" />
             </LinearLayout>
 
             <!-- Grid of Numbers -->
@@ -115,6 +116,7 @@
                     android:layout_height="100dp"
                     android:text="6"
                     android:textSize="60sp"
+                    android:autoSizeTextType="uniform"
                     android:gravity="center"
                     android:layout_margin="8dp"
                     android:background="@android:color/holo_purple"
@@ -126,6 +128,7 @@
                     android:layout_height="100dp"
                     android:text="6"
                     android:textSize="60sp"
+                    android:autoSizeTextType="uniform"
                     android:gravity="center"
                     android:layout_margin="8dp"
                     android:background="@android:color/holo_purple"
@@ -137,6 +140,7 @@
                     android:layout_height="100dp"
                     android:text="6"
                     android:textSize="60sp"
+                    android:autoSizeTextType="uniform"
                     android:gravity="center"
                     android:layout_margin="8dp"
                     android:background="@android:color/holo_purple"
@@ -148,6 +152,7 @@
                     android:layout_height="100dp"
                     android:text="5"
                     android:textSize="60sp"
+                    android:autoSizeTextType="uniform"
                     android:gravity="center"
                     android:layout_margin="8dp"
                     android:background="@android:color/holo_purple"
@@ -160,7 +165,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="INFO"
-                android:layout_marginTop="24dp" />
+                android:layout_marginTop="24dp"
+                android:contentDescription="More information" />
         </LinearLayout>
     </ScrollView>
 
