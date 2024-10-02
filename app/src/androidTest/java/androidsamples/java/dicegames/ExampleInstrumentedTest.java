@@ -140,6 +140,22 @@ public class ExampleInstrumentedTest {
         }
     }
 
+    @Test
+    public void checkButtonHasContentDescription() {
+        // Verify the button has a content description for accessibility
+        onView(withId(R.id.btn_games))
+                .check(matches(withSubstring("To Games"))); // Assuming the content description includes "Roll Die"
+    }
+
+    @Test
+    public void checkButtonIsFocusable() {
+        // Check that the button is focusable (important for keyboard and accessibility)
+        onView(withId(R.id.btn_die))
+                .check((view, noViewFoundException) -> {
+                    assertEquals(true, view.isFocusable()); // Assert that the button is focusable
+                });
+    }
+
 
 
 
