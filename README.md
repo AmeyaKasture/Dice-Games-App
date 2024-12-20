@@ -6,7 +6,9 @@ An Android application offering users two gaming options, along with a separate 
 
 **Project Name**: Dice Play Mobile Application
 
-**Participants**: Sharwin Neema (2021A7PS1442G, f20211442@goa.bits-pilani.ac.in) - Ameya Kasture (2021A7PS2058G, f20212058@goa.bits-pilani.ac.in)
+**Participants**: 
+- Sharwin Neema (2021A7PS1442G, f20211442@goa.bits-pilani.ac.in) 
+- Ameya Kasture (2021A7PS2058G, f20212058@goa.bits-pilani.ac.in)
 
 ### b. App Overview
 
